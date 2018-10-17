@@ -17,8 +17,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [MBProgressHUD fy_showOnlyText:@"ceshi" view:self.view];
+//    [MBProgressHUD fy_showOnlyText:@"ceshi" view:self.view];
 //    [MBProgressHUD fy_showLoadingGif:@"201802061132011" view:self.view duration:8];
+    [MBProgressHUD fy_showOnlyImage:@"11"];
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //        [MBProgressHUD hideHUDForView:self.view animated:YES];
 //    });

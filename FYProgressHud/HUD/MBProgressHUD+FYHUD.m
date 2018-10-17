@@ -11,6 +11,7 @@
 
 @implementation MBProgressHUD (FYHUD)
 
+//MARK:只显示文字
 +(void)fy_showOnlyText:(NSString *)message {
     [self fy_showOnlyText:message view:nil time:1.5];
 }
@@ -29,6 +30,7 @@
     [hud hideAnimated:YES afterDelay:time];
 }
 
+//MARK:显示帧动画gif
 +(void)fy_showLoadingGif:(NSString *)gifName view:(nullable UIView *)view duration:(NSTimeInterval)duration {
     NSString *path=[[NSBundle mainBundle]pathForResource:gifName ofType:@"gif"];
     NSArray *gifImages=[GifArr praseGIFDataToImageArray:[NSData dataWithContentsOfFile:path]];
@@ -58,10 +60,42 @@
     hud.customView = images;
 }
 
+//MARK:隐藏
 +(void)fy_hid {
     [self fy_hid:nil];
 }
-+(void)fy_hid:(UIView *)view {
-    [self hideHUDForView:view animated:YES];
++(void)fy_hid:(nullable UIView *)view {
+    [[self progressHud:view] hideAnimated:YES];
 }
+
++ (MBProgressHUD *)progressHud:(UIView *)view {
+    if (view == nil) view = [[UIApplication sharedApplication].windows lastObject];
+    NSEnumerator *subviewsEnum = [view.subviews reverseObjectEnumerator];
+    for (UIView *subview in subviewsEnum) {
+        if ([subview isKindOfClass:self]) {
+            MBProgressHUD *hudView = (MBProgressHUD *)subview;
+            return hudView;
+        }
+    }
+    return nil;
+}
+
+
+/**
+ MARK:只显示图片
+ */
++(void)fy_showOnlyImage:(NSString *)imageName view:(nullable UIView *)view {
+    if (view == nil) view = [[UIApplication sharedApplication].windows lastObject];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+    hud.bezelView.backgroundColor = [UIColor clearColor];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 50,50)];
+    imageView.image = [UIImage imageNamed:imageName];
+    hud.mode = MBProgressHUDModeCustomView;
+    hud.customView = imageView;
+}
+
++(void)fy_showOnlyImage:(NSString *)imageName {
+    [self fy_showOnlyImage:imageName view:nil];
+}
+
 @end

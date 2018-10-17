@@ -13,6 +13,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MBProgressHUD (FYHUD)
 
+
+/**
+ 只显示图片
+ */
++(void)fy_showOnlyImage:(NSString *)imageName;
+
+/**
+ 只显示图片
+
+ @param view 所显示的视图
+ */
++(void)fy_showOnlyImage:(NSString *)imageName view:(nullable UIView *)view;
+
 /**
  只显示纯文本
 
@@ -65,6 +78,12 @@ NS_ASSUME_NONNULL_BEGIN
  隐藏
  */
 +(void)fy_hid;
+
+/**
+ 隐藏
+ @param view 父视图
+ */
++(void)fy_hid:(nullable UIView *)view;
 
 @end
 
